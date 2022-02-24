@@ -5,6 +5,7 @@ import Cloudy from "./assets/Cloudy.jpg";
 import Rainy from "./assets/Rainy.jpg";
 import Snowy from "./assets/Snowy.jpg";
 import Overcast from "./assets/Overcast.jpg";
+import SearchIcon from "@mui/icons-material/Search";
 
 function App() {
   const [city, setCity] = useState("London");
@@ -46,7 +47,33 @@ function App() {
           ? { backgroundImage: `url(${Snowy})` }
           : { backgroundImage: `url(${Overcast})` }
       }
-    ></div>
+    >
+      <div className="search-input">
+        <input
+          type="text"
+          defaultValue="London"
+          onChange={(event) => setCity(event.target.value)}
+        />
+        <SearchIcon
+          onClick={handleFetch}
+          fontSize="large"
+          className="search-button"
+        />
+      </div>
+      <div className="weather-container">
+        <div className="topDisplay">
+          <h1>{cityInfo.celsius?.current}°</h1>
+          <div className="conditionHighLow">
+            <h1>{cityInfo.condition}</h1>
+            <h1>{cityInfo.celsius?.high}°</h1>
+            <h1>{cityInfo.celsius?.low}°</h1>
+          </div>
+        </div>
+        <h2>
+          {cityInfo.Name}, {cityInfo.country}
+        </h2>
+      </div>
+    </div>
   );
 }
 
