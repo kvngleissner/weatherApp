@@ -12,7 +12,7 @@ function App() {
 
   useEffect(() => {
     handleFetch();
-  });
+  }, []);
 
   const handleFetch = () => {
     fetch(
@@ -50,6 +50,7 @@ function App() {
           : { backgroundImage: `url(${Overcast})` }
       }
     >
+      <div className="title">Weather Forecast</div>
       <div className="search-input">
         <input
           type="text"

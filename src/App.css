@@ -12,6 +12,13 @@
   overflow: hidden;
 }
 
+.title {
+  font-family: "Merriweather Sans", sans-serif;
+  font-size: 40px;
+  padding: 5px;
+  text-align: center;
+}
+
 .search-input {
   display: flex;
   align-items: center;
