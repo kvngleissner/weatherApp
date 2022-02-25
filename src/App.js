@@ -12,6 +12,7 @@ function App() {
 
   useEffect(() => {
     handleFetch();
+    // eslint-disable-line react-hooks/exhaustive-deps
   }, []);
 
   const handleFetch = () => {
@@ -50,7 +51,7 @@ function App() {
           : { backgroundImage: `url(${Overcast})` }
       }
     >
-      <div className="title">Weather Forecast</div>
+      <div className="title">Todays Weather Forecast</div>
       <div className="search-input">
         <input
           type="text"
@@ -67,9 +68,9 @@ function App() {
         <div className="topDisplay">
           <h1>{cityInfo.celsius?.current}° C</h1>
           <div className="condition-high-low">
-            <h1>{cityInfo.condition}</h1>
-            <h1>{cityInfo.celsius?.high}° C</h1>
-            <h1>{cityInfo.celsius?.low}° C</h1>
+            <h1>Condition: {cityInfo.condition}</h1>
+            <h1>high: {cityInfo.celsius?.high}° C</h1>
+            <h1>low: {cityInfo.celsius?.low}° C</h1>
           </div>
         </div>
         <h2>
