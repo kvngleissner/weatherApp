@@ -1,20 +1,22 @@
 import "./App.css";
-import { useState, useEffect } from "react";
 import Sunny from "./assets/Sunny.jpg";
-import Cloudy from "./assets/Cloudy.jpg";
-import Rainy from "./assets/Rainy.jpg";
-import Snowy from "./assets/Snowy.jpg";
 import Overcast from "./assets/Overcast.jpg";
+import Rainy from "./assets/Rainy.jpg";
+import Snow from "./assets/Snowy.jpg";
 import SearchIcon from "@mui/icons-material/Search";
+import { useState, useEffect } from "react";
 
 function App() {
-  const [city, setCity] = useState("London");
+  const [city, setCity] = useState("Munich");
+  const [cityInfo, setCityInfo] = useState({});
+
   useEffect(() => {
     handleFetch();
   });
+
   const handleFetch = () => {
     fetch(
-      `http://api.weatherapi.com/v1/forecast.json?key=${process.env.REACT_APP_API_KEY}&q=${city}&days=1&aqi=no&alerts=no`
+      `https://api.weatherapi.com/v1/forecast.json?key=${process.env.REACT_APP_API_KEY}&q=${city}&aqi=no`
     )
       .then((response) => response.json())
       .then((data) =>
@@ -24,7 +26,7 @@ function App() {
           celsius: {
             current: data.current.temp_c,
             high: data.forecast.forecastday[0].day.maxtemp_c,
-            min: data.forecast.forecastday[0].day.mintemp_c,
+            low: data.forecast.forecastday[0].day.mintemp_c,
           },
           condition: data.current.condition.text,
         })
@@ -36,22 +38,22 @@ function App() {
     <div
       className="App"
       style={
-        cityInfo.condition?.tolowercase() === "clear" ||
-        cityInfo.condition?.tolowercase() === "sunny"
+        cityInfo.condition?.toLowerCase() === "clear" ||
+        cityInfo.condition?.toLowerCase() === "sunny"
           ? { backgroundImage: `url(${Sunny})` }
-          : cityInfo.condition?.tolowercase.includes("cloudy")
-          ? { backgroundImage: `url(${Cloudy})` }
-          : cityInfo.condition?.tolowercase.includes("rainy")
+          : cityInfo.condition?.includes("cloudy")
+          ? { backgroundImage: `url(${Overcast})` }
+          : cityInfo.condition?.toLowerCase().includes("rainy")
           ? { backgroundImage: `url(${Rainy})` }
-          : cityInfo.condition?.tolowercase.includes("snow")
-          ? { backgroundImage: `url(${Snowy})` }
+          : cityInfo.condition?.toLowerCase().includes("snow")
+          ? { backgroundImage: `url(${Snow})` }
           : { backgroundImage: `url(${Overcast})` }
       }
     >
       <div className="search-input">
         <input
           type="text"
-          defaultValue="London"
+          value={city}
           onChange={(event) => setCity(event.target.value)}
         />
         <SearchIcon
@@ -62,19 +64,18 @@ function App() {
       </div>
       <div className="weather-container">
         <div className="topDisplay">
-          <h1>{cityInfo.celsius?.current}°</h1>
-          <div className="conditionHighLow">
+          <h1>{cityInfo.celsius?.current}° C</h1>
+          <div className="condition-high-low">
             <h1>{cityInfo.condition}</h1>
-            <h1>{cityInfo.celsius?.high}°</h1>
-            <h1>{cityInfo.celsius?.low}°</h1>
+            <h1>{cityInfo.celsius?.high}° C</h1>
+            <h1>{cityInfo.celsius?.low}° C</h1>
           </div>
         </div>
         <h2>
-          {cityInfo.Name}, {cityInfo.country}
+          {cityInfo.name}, {cityInfo.country}
         </h2>
       </div>
     </div>
   );
 }
-
 export default App;
