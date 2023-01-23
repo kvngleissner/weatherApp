@@ -1,8 +1,8 @@
 import "./App.css";
-import Sunny from "./assets/Sunny.jpg";
-import Overcast from "./assets/Overcast.jpg";
-import Rainy from "./assets/Rainy.jpg";
-import Snow from "./assets/Snowy.jpg";
+import Sunny from "./assets/sunny.jpg";
+import Overcast from "./assets/overcast.jpg";
+import Rainy from "./assets/rainy.jpg";
+import Snow from "./assets/snowy.jpg";
 import SearchIcon from "@mui/icons-material/Search";
 import { useState, useEffect } from "react";
 
